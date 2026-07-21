@@ -38,7 +38,7 @@ API route. It POSTs JSON:
   "phone": "…", "zip": "…", "email": "…",
   "service": "…", "notes": "…",
   "submitted_at": "ISO-8601",
-  "source": "profinishcoatings.com/#estimate",
+  "source": "profinishicoatings.com/#estimate",
   "fill_seconds": 0.8,
   "suspected_bot": false
 }
@@ -66,10 +66,10 @@ Search `index.html` for `data-placeholder`. Each one is marked.
 
 | What | Current value | Notes |
 |---|---|---|
-| Email | `estimates@profinishcoatings.com` | Footer |
+| Email | `estimates@profinishicoatings.com` | Footer |
 | Address | "Orlando, Florida" | Also in the JSON-LD block in `<head>`. This is the physical address, not the service area — the copy positions the company as Central Florida, but structured data needs a real city. |
 | "4.9 ★ Google rating" | invented | Hero stats |
-| Domain | `profinishcoatings.com` | `canonical`, `og:url`, `og:image` |
+| Domain | `profinishicoatings.com` | `canonical`, `og:url`, `og:image` |
 
 The phone number is real: **(407) 885-7011**, live in the header, hero,
 footer, mobile bar, `noscript` fallback and JSON-LD. `main.js` does not

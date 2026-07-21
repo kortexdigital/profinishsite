@@ -139,7 +139,7 @@
     delete data.company_website;
     delete data.form_loaded_at;
     data.submitted_at   = new Date().toISOString();
-    data.source         = 'profinishcoatings.com/#estimate';
+    data.source         = 'profinishicoatings.com/#estimate';
     data.fill_seconds   = Math.round(elapsed / 100) / 10;
     data.suspected_bot  = elapsed < 1500;
 
