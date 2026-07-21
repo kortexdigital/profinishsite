@@ -165,17 +165,15 @@
   /* ═════════════════════════════════════════════════════════════
      ▓▓▓  THE ONLY INTEGRATION POINT  ▓▓▓
 
-     Right now this resolves without sending anywhere — the form is
-     fully built and validated, but no lead leaves the browser yet.
+     Live. The form POSTs to an n8n workflow on the agency's own
+     infrastructure, which emails the owner via Resend with the lead's
+     address as Reply-To.
 
-     To go live, set ENDPOINT below to one of:
-       • a Make.com / Zapier webhook URL
-       • a Formspree endpoint  (https://formspree.io/f/xxxxxxx)
-       • your own /api/lead route
-
-     Nothing else in this file or the HTML needs to change.
+     Workflow: flows.kortexlabs.cloud/workflow/k81dklf1HxcRfsA6
+     Change the URL here and nothing else in this file or the HTML needs
+     to change.
      ═════════════════════════════════════════════════════════════ */
-  var ENDPOINT = ''; // ← paste the webhook URL here
+  var ENDPOINT = 'https://flows.kortexlabs.cloud/webhook/profinish-lead';
 
   var TIMEOUT_MS = 12000;
 

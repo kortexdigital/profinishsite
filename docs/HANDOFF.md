@@ -19,17 +19,19 @@ Drag the `site/` folder in. Nothing to configure.
 
 ## ⚠ Before this goes live
 
-### 1. Wire up the form (required — no lead leaves the browser today)
+### 1. The form is live
 
-The form is fully built and validated, but **nothing is sent anywhere yet**.
-There is exactly one place to change. In `assets/js/main.js`:
+It POSTs to an n8n workflow running on the agency's own server, which emails
+the owner through Resend. Reply-To is set to the lead's address, so replying
+goes straight to the customer.
 
-```js
-var ENDPOINT = ''; // ← paste the webhook URL here
+```
+form → https://flows.kortexlabs.cloud/webhook/profinish-lead
+     → Resend → rodrigopinhodemello@gmail.com (bcc: kortexlabs@gmail.com)
 ```
 
-Set it to a Make.com/Zapier webhook, a Formspree endpoint, or your own
-API route. It POSTs JSON:
+Sender is `leads@profinishicoatings.com`, authenticated with DKIM and SPF on
+the client's own domain. The payload:
 
 ```json
 {
