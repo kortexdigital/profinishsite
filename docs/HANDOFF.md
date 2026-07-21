@@ -71,7 +71,7 @@ Search `index.html` for `data-placeholder`. Each one is marked.
 | "4.9 ★ Google rating" | invented | Hero stats |
 | Domain | `profinishcoatings.com` | `canonical`, `og:url`, `og:image` |
 
-The phone number is real: **(407) 887-7011**, live in the header, hero,
+The phone number is real: **(407) 885-7011**, live in the header, hero,
 footer, mobile bar, `noscript` fallback and JSON-LD. `main.js` does not
 hardcode it — its error message reads it out of the header, so it follows
 any future change automatically.

@@ -695,17 +695,28 @@ section[id]{ scroll-margin-top:calc(var(--hdr-h) + 12px); }
 }
 
 /* ── MOBILE ACTION BAR ──────────────────────────────────────── */
+/* The safe-area inset lives on the BUTTONS, not on .bar. Put it on the
+   container and that strip is transparent: on an iPhone, once Safari's
+   toolbar collapses on scroll, the page shows through underneath and the
+   bar reads as floating above a hole. Each button now paints its own
+   background all the way down to the physical bottom edge. */
 .bar{ display:none; position:fixed; left:0; right:0; bottom:0; z-index:120;
   border-top:var(--cut) solid var(--amber);
-  padding-bottom:env(safe-area-inset-bottom, 0px); }
+  background:var(--ink); }
 .bar__b{
   flex:1; display:flex; align-items:center; justify-content:center; gap:9px;
-  padding:16px 10px; text-decoration:none;
+  padding:16px 10px calc(16px + env(safe-area-inset-bottom, 0px));
+  text-decoration:none;
   font-family:var(--mono); font-size:13.5px; font-weight:600; letter-spacing:.03em;
 }
 .bar__b svg{ width:17px; height:17px; fill:currentColor; }
-.bar__b--call{ background:var(--ink); color:var(--warm); }
-.bar__b--est{ background:var(--amber); color:var(--ink); }
+/* landscape on a notched phone puts the outer edges under the sensor
+   housing — the inset goes on the button so its background still reaches
+   the edge while the label stays clear of it */
+.bar__b--call{ background:var(--ink); color:var(--warm);
+  padding-left:calc(10px + env(safe-area-inset-left, 0px)); }
+.bar__b--est{ background:var(--amber); color:var(--ink);
+  padding-right:calc(10px + env(safe-area-inset-right, 0px)); }
 
 /* ═══ RESPONSIVE — one breakpoint, like the good reference ═══ */
 @media (max-width:880px){
@@ -753,8 +764,17 @@ section[id]{ scroll-margin-top:calc(var(--hdr-h) + 12px); }
   .steps__i{ padding:26px 0 28px; }
   .est__grid{ grid-template-columns:1fr; }
   .est__card{ margin-inline:calc(var(--pad) * -1); }
-  .ftr__grid{ grid-template-columns:1fr 1fr; }
+  /* Brand across the top, the three lists 3-up beneath it. A 2x2 here puts
+     the two short lists in half-width cells and leaves a dead pocket under
+     each one; 3-up keeps the nav on a single compact row. Below 640px the
+     tracks get too narrow for the email and this drops to two — see below. */
+  .ftr__grid{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px 24px;
+    align-items:start; }
+  .ftr__brand{ grid-column:1 / -1; }
   .ftr__base{ justify-content:flex-start; }
+  /* minmax(0,1fr) stops a long token widening its track, so without this the
+     address overflows into the next column instead of wrapping */
+  .ftr__col p{ overflow-wrap:anywhere; }
 
   .ba__stage{ aspect-ratio:4/3; }
   .gal{ gap:16px; }
@@ -765,6 +785,28 @@ section[id]{ scroll-margin-top:calc(var(--hdr-h) + 12px); }
   .logo img{ height:46px; }
 }
 
+/* Footer only. Three tracks stop fitting well before the 520px phone
+   breakpoint — at 521px they are ~140px each and the email overflows its
+   column. Drop to two here instead: brand spans the top, the two short
+   lists pair off on one row, and the five page links go 2-up underneath.
+   Three compact rows rather than four full-width ones, and no hollow cell. */
+@media (max-width:640px){
+  .ftr__grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 20px;
+    padding-bottom:34px; }
+  .ftr__brand{ grid-column:1 / -1; }
+  .ftr__col--contact{ grid-column:1; grid-row:2; }
+  .ftr__col--hours{   grid-column:2; grid-row:2; }
+  .ftr__col--nav{
+    grid-column:1 / -1; grid-row:3;
+    display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 20px;
+  }
+  .ftr__col--nav h3{ grid-column:1 / -1; }
+  /* the <wbr> after the @ gives the address a clean break; a step down in
+     size keeps the remaining domain on one line instead of orphaning its
+     last character, whatever address gets swapped in at launch */
+  .ftr__col a[href^="mailto:"]{ font-size:13px; }
+}
+
 @media (max-width:520px){
   /* the logo block wraps below ~400px, growing the header to ~115px */
   :root{ --hdr-h:98px; }
@@ -772,7 +814,6 @@ section[id]{ scroll-margin-top:calc(var(--hdr-h) + 12px); }
   .fear{  grid-template-columns:1fr; }
   .rules{ grid-template-columns:1fr; }
   .form__row{ grid-template-columns:1fr; gap:0; }
-  .ftr__grid{ grid-template-columns:1fr; gap:28px; }
   .hero__cta .btn{ width:100%; }
 
   /* one per row so the right edge is flush instead of ragged */
